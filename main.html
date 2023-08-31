@@ -5,7 +5,7 @@
 </head>
 <body>
   <h1>Your Current Location</h1>
-  <p id="location"></p>
+  <div id="location"></div>
 
   <script>
     // Check if the browser supports Geolocation API
@@ -18,7 +18,10 @@
         // Display the location on the webpage
         var locationElement = document.getElementById("location");
         locationElement.textContent = "Latitude: " + latitude + ", Longitude: " + longitude;
-      }, function(error) {
+        var mapElement = document.createElement("iframe")
+        mapElement.src = "https://maps.google.com/maps?output=embed&ll=" + latitude + "," + longitude + "&t=m&hl=ja&z=18";
+        locationElement.appendChild(mapElement);
+        }, function(error) {
         // Handle error cases
         switch (error.code) {
           case error.PERMISSION_DENIED:
