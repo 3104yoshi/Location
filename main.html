@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Current Location Example</title>
+</head>
+<body>
+  <h1>Your Current Location</h1>
+  <p id="location"></p>
+
+  <script>
+    // Check if the browser supports Geolocation API
+    if ("geolocation" in navigator) {
+      // Get the current position
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        // Display the location on the webpage
+        var locationElement = document.getElementById("location");
+        locationElement.textContent = "Latitude: " + latitude + ", Longitude: " + longitude;
+      }, function(error) {
+        // Handle error cases
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            locationElement.textContent = "User denied the request for Geolocation.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            locationElement.textContent = "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            locationElement.textContent = "The request to get user location timed out.";
+            break;
+          case error.UNKNOWN_ERROR:
+            locationElement.textContent = "An unknown error occurred.";
+            break;
+        }
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      locationElement.textContent = "Geolocation is not supported by this browser.";
+    }
+  </script>
+</body>
+</html>
